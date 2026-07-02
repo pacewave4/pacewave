@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PaceWave - Premium Reader</title>
+<meta name="description" content="PaceWave: Premium digital reading library with dark mode and reader.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="logo">PaceWave</div>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" onclick="showView('home')">Home</a>
+      <a href="#" onclick="showView('library')">Library</a>
+      <a href="#categories" onclick="showView('library')">Categories</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="btn" onclick="showView('library')">Read Now</button>
+      <button class="icon-btn" onclick="toggleTheme()" aria-label="Toggle theme">🌓</button>
+      <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('show')">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+  <!-- HOME VIEW -->
+  <div id="homeView">
+    <section class="hero" id="home">
+      <div class="floating-books" id="floatBooks"></div>
+      <div class="container">
+        <h1>Read at your own Pace</h1>
+        <p>Discover premium books. Clean reading, zero distractions, full control.</p>
+        
+        <div class="search-wrap">
+          <div class="search glass">
+            <input type="text" id="searchInput" placeholder="Search by title, author, or category..." oninput="liveSearchDropdown(this.value)" onkeydown="if(event.key==='Enter'){ commitSearch(this.value) }" autocomplete="off">
+            <button class="btn btn-search" onclick="commitSearch(document.getElementById('searchInput').value)">Search</button>
+          </div>
+          <div class="search-results glass" id="searchResults" style="display:none"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container fade">
+      <h2>Featured Books</h2>
+      <div class="carousel" id="featuredCarousel"></div>
+    </section>
+
+    <section class="container fade">
+      <h2>New Arrivals</h2>
+      <div class="carousel" id="newCarousel"></div>
+    </section>
+
+    <section class="container fade" id="categories">
+      <h2>Browse Categories</h2>
+      <div class="cat-grid" id="catGrid"></div>
+    </section>
+  </div>
+
+  <!-- LIBRARY VIEW -->
+  <section class="container fade" id="libraryView" style="display:none">
+    <h2 id="booksTitle">All Books</h2>
+    <div class="carousel" id="booksGrid" style="flex-wrap:wrap;overflow:visible"></div>
+  </section>
+
+  <!-- READER VIEW -->
+  <section class="reader-wrap" id="readerView" style="display:none">
+    <div class="topbar">
+      <div class="brand">PaceWave Reader</div>
+      <div style="display:flex;gap:10px">
+        <button class="btn-ghost" onclick="toggleTheme()">🌓 Theme</button>
+        <button class="btn-ghost" onclick="backToLibrary()">← Back to Library</button>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="reader-header">
+        <h2 id="chapterTitle">Loading...</h2>
+        <p id="chapterAuthor"></p>
+      </div>
+
+      <div class="controls">
+        <select id="fontSelect" onchange="changeFont()">
+          <option value="Inter">Inter</option>
+          <option value="Georgia">Georgia</option>
+          <option value="Merriweather">Merriweather</option>
+        </select>
+        <input type="range" id="sizeRange" min="14" max="26" value="18" oninput="changeSize(this.value)">
+        <span id="sizeDisplay" class="muted">18px</span>
+        <input type="text" id="searchBox" placeholder="Search in chapter..." oninput="searchText(this.value)">
+      </div>
+
+      <div class="progress"><div id="progressBar"></div></div>
+
+      <article class="reader" id="content">
+        <div id="chapterText"></div>
+      </article>
+
+      <div class="controls center">
+        <button class="btn-ghost" onclick="prevChapter()">← Previous</button>
+        <select id="chapterSelect" onchange="loadChapter(this.value)"></select>
+        <button class="btn-ghost" onclick="nextChapter()">Next →</button>
+        <button class="btn-ghost" onclick="toggleBookmark()">🔖 Save</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <div class="logo">PaceWave</div>
+      <p class="muted">Premium reading, redefined.</p>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <a href="about.html">About Us</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+  </div>
+  <p class="copy">© 2026 PaceWave. All rights reserved.</p>
+</footer>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script src="app.js"></script>
+</body>
+  </html>
