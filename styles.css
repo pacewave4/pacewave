@@ -1,0 +1,7 @@
+.book-float{
+  position:absolute;width:60px;height:80px;border-radius:6px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  box-shadow:0 10px 20px rgba(0,0,0,0.3);
+  will-change: transform;
+}
+.floating-books{position:absolute;inset:0;pointer-events:none;z-index:-1;overflow:hidden}
